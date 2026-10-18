@@ -1,5 +1,5 @@
 const config = {
-  SERVICE_NAME: require("../../package.json").name,
+  SERVICE_NAME: "IRCTC-Backend",
   PORT: Number(process.env.PORT) || 4001,
   NODE_ENV: process.env.NODE_ENV || "development",
   LOG_LEVEL: process.env.LOG_LEVEL || "info",
@@ -32,4 +32,4 @@ if (!config.RESEND_API_KEY) {
 if (!config.MAIL_SEND) {
   throw new Error("MAIL_SEND missing");
 }
-module.exports = { config };
+export default config

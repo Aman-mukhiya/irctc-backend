@@ -1,5 +1,6 @@
-const cors = require('cors');
-const { config } = require('../config');
+import cors from "cors"
+// const { config } = require('../config');
+import config from "../config/index.js";
 
 const corsMiddleware = cors({
      origin: config.ALLOWED_ORIGINS.split(','),
@@ -14,6 +15,6 @@ const corsMiddleware = cors({
      ],
 });
 
-module.exports = {
-     corsMiddleware,
-};
+export default corsMiddleware
+
+

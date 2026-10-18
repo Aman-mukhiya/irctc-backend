@@ -1,6 +1,6 @@
-const logger = require('../config/logger');
+import logger from '../config/index.js';
 
-const reqLogger = (req, res, next) => {
+export const reqLogger = (req, res, next) => {
      logger.debug(`[${req.method}] ${req.originalUrl}`);
      const start = Date.now();
 
@@ -14,6 +14,3 @@ const reqLogger = (req, res, next) => {
      next();
 };
 
-module.exports = {
-     reqLogger,
-};

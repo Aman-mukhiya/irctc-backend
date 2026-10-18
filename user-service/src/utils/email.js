@@ -1,13 +1,12 @@
-const { config } = require("../config");
-
-const { Resend } = require("resend");
+import config  from "../config/index.js";
+import { Resend } from "resend";
 const resend = new Resend(config.RESEND_API_KEY);
 const minutes = (config.OTP_TTL || 300) / 60;
-async function sendOtpEmail(email, otp) {
+export async function sendOtpEmail(email, otp) {
   const msg = {
     to: email,
     from: `${config.MAIL_SEND}`,
-    subject: "Your DesignKarle verification code",
+    subject: "Your verification code",
     html: `
      <div style="
           font-family: Arial, sans-serif; 
@@ -20,7 +19,7 @@ async function sendOtpEmail(email, otp) {
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
      ">
           <div style="text-align: center; margin-bottom: 20px;">
-               <h2 style="color: #4A3AFF; margin: 0;">DesignKarle</h2>
+               <h2 style="color: #4A3AFF; margin: 0;">IRCTC-Backend</h2>
           </div>
 
           <p style="font-size: 16px; color: #333;">
@@ -28,7 +27,7 @@ async function sendOtpEmail(email, otp) {
           </p>
 
           <p style="font-size: 16px; color: #333;">
-               Welcome to <strong>DesignKarle</strong> 👋  
+               Welcome to <strong>IRCTC-Backend</strong> 👋  
                Use the verification code below to complete your sign up:
           </p>
 
@@ -63,7 +62,6 @@ async function sendOtpEmail(email, otp) {
 
           <p style="font-size: 14px; color: #888; text-align: center;">
                Happy Learning 🎉<br/>
-               <strong>Team DesignKarle</strong>
           </p>
      </div>`,
   };
@@ -75,11 +73,11 @@ async function sendOtpEmail(email, otp) {
   }
 }
 
-async function verifyOtpEmail(meta) {
+export async function verifyOtpEmail(meta) {
   const msg = {
     to: meta.email,
     from: `${config.MAIL_SEND}`,
-    subject: "Welcome to DesignKarle, Email Verified",
+    subject: "Email Verified for IRCTC-Backend",
     html: `
      <div style="
           font-family: Arial, sans-serif; 
@@ -92,7 +90,7 @@ async function verifyOtpEmail(meta) {
           box-shadow: 0 4px 10px rgba(0,0,0,0.05);
      ">
           <div style="text-align: center; margin-bottom: 20px;">
-               <h2 style="color: #4A3AFF; margin: 0;">DesignKarle</h2>
+               <h2 style="color: #4A3AFF; margin: 0;">IRCTC-Backend</h2>
           </div>
 
           <p style="font-size: 16px; color: #333;">
@@ -100,7 +98,7 @@ async function verifyOtpEmail(meta) {
           </p>
 
           <p style="font-size: 16px; color: #333;">
-               Welcome to <strong>DesignKarle</strong> 👋  
+               Welcome to <strong>IRCTC-Backend</strong> 👋  
                Your account has been successfully created and verified.
           </p>
 
@@ -131,7 +129,6 @@ async function verifyOtpEmail(meta) {
 
           <p style="font-size: 14px; color: #888; text-align: center;">
                Happy Learning 🎉<br/>
-               <strong>Team DesignKarle</strong>
           </p>
      </div>`,
   };
@@ -142,5 +139,3 @@ async function verifyOtpEmail(meta) {
     throw new Error(error.message);
   }
 }
-
-module.exports = { sendOtpEmail, verifyOtpEmail };

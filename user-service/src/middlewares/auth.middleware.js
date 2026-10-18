@@ -1,7 +1,7 @@
 const { verifyAccessToken } = require("../utils/auth");
 const { UnauthorizedError } = require("../utils/error");
 
-function requireAuth(req, res, next) {
+function requireAuth(req, _res, next) {
      const authHeader = req.headers.authorization;
 
      if (!authHeader || !authHeader.startsWith("Bearer ")) {
