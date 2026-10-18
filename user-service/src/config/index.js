@@ -1,3 +1,4 @@
+
 const config = {
   SERVICE_NAME: "IRCTC-Backend",
   PORT: Number(process.env.PORT) || 4001,
@@ -21,15 +22,20 @@ const config = {
   REFRESH_TOKEN_EXP_SEC: Number(process.env.REFRESH_TOKEN_EXP_SEC || 604800),
   REDIS_USER_TTL: Number(process.env.REDIS_USER_TTL || 86400),
 
-  MAIL_SEND: process.env.MAIL_SEND ,
-  RESEND_API_KEY: process.env.RESEND_API_KEY 
+  GMAIL_USER: process.env.GMAIL_USER,
+  GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD,
 };
 
-if (!config.RESEND_API_KEY) {
-  throw new Error("RESEND_API_KEY missing");
+if (!config.GMAIL_USER || !config.GMAIL_APP_PASSWORD) {
+  throw new Error("GMAIL_USER or GMAIL_APP_PASSWORD missing");
 }
 
-if (!config.MAIL_SEND) {
-  throw new Error("MAIL_SEND missing");
-}
+// console.log("========== ENV CONFIG DEBUG ==========");
+
+// for (const [key, value] of Object.entries(config)) {
+//   console.log(`${key}: ${value} `);
+// }
+
+// console.log("======================================");
 export default config
+

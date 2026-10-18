@@ -7,7 +7,7 @@ const OTP_TTL = parseInt(config.OTP_TTL || "300");
 import {redis} from "../config/redis.js";
 
 const RATE_MAX = parseInt(config.OTP_MAX_VERIFY_ATTEMPTS);
-const HMAC_SECRET = config.HMAC_SECRET;
+const HMAC_SECRET = config.OTP_HMAC_SECRET;
 
 const hmacFor = (email, otp) => {
   return crypto

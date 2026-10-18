@@ -1,11 +1,20 @@
-import config  from "../config/index.js";
-import { Resend } from "resend";
-const resend = new Resend(config.RESEND_API_KEY);
-const minutes = (config.OTP_TTL || 300) / 60;
+import nodemailer from "nodemailer";
+import config from "../config/index.js";
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: config.GMAIL_USER,
+    pass: config.GMAIL_APP_PASSWORD,
+  },
+});
+
+const minutes = (Number(config.OTP_TTL) || 300) / 60;
+const FROM = `IRCTC-Backend <${config.GMAIL_USER}>`;
 export async function sendOtpEmail(email, otp) {
   const msg = {
     to: email,
-    from: `${config.MAIL_SEND}`,
+    from: FROM,
     subject: "Your verification code",
     html: `
      <div style="
@@ -66,17 +75,13 @@ export async function sendOtpEmail(email, otp) {
      </div>`,
   };
 
-  const { data, error } = await resend.emails.send(msg);
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await transporter.sendMail(msg);
 }
 
 export async function verifyOtpEmail(meta) {
   const msg = {
     to: meta.email,
-    from: `${config.MAIL_SEND}`,
+    from: FROM,
     subject: "Email Verified for IRCTC-Backend",
     html: `
      <div style="
@@ -133,9 +138,5 @@ export async function verifyOtpEmail(meta) {
      </div>`,
   };
 
-  const { data, error } = await resend.emails.send(msg);
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await transporter.sendMail(msg);
 }
