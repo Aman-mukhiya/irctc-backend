@@ -1,9 +1,9 @@
 import express from "express";
-import { sendOTP } from "../controllers/auth.controller.js";
+import { sendOTP, verifyOTP } from "../controllers/auth.controller.js";
 const router = express.Router();
 
 router.post("/send-otp", sendOTP);
-// router.post("/verify-otp", verifyOTP);
+router.post("/verify-otp", verifyOTP);
 // router.post("/login", login);
 // router.get("/refresh", rotateRefreshToken);
 
